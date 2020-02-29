@@ -1,0 +1,7 @@
+<div *ngIf="stories$ | async as stories">
+  <div class="list-group">
+    <div *ngFor="let story of stories">
+      <app-story [story]=story (click)="onClickStory($event, story)"></app-story>
+    </div>
+  </div>
+</div>
