@@ -2,10 +2,8 @@
   <app-story [story]=data.story></app-story>
   <div *ngIf="data.comments">
     <div class="list-group">
-      <div *ngFor="let comment of data.comments" class="list-group-item list-group-item-action">
-        <p><strong>{{comment.by}}</strong> at {{ comment.time * 1000 | date:'medium' }}</p>
-        <div [innerHTML]="comment.text"></div>
-
+      <div *ngFor="let comment of data.comments" class="list-group-item list-group-item">
+        <app-comment [comment]=comment></app-comment>
       </div>
     </div>
   </div>

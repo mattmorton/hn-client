@@ -29,7 +29,6 @@ export class StoryDetailComponent implements OnInit {
     this.data$ = this.api.getItemById(id).pipe(
       mergeMap((story) => {
         return this.api.getMultipleItems(story.kids).pipe(map(comments => {
-          console.log('comments', comments)
           return { story: story, comments: comments }
         }))
       }),

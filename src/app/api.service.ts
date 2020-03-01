@@ -21,12 +21,14 @@ export class ApiService {
 
   getTopStories(): Observable<[number]> {
     const url = `${this.baseUrl}/topstories.json`;
-    return this.http.get<[number]>(url)
+    return this.http.get<[number]>(url);
   }
 
   getItemById(id): Observable<any> {
     const url = `${this.baseUrl}/item/${id}.json`;
-    return this.http.get<any>(url)
+    return this.http.get<any>(url).pipe(
+      tap(res => res.display = true)
+    )
   }
 
   getMultipleItems(ids: number[]) {

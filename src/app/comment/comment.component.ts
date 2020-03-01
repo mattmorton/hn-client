@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ApiService } from '../api.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-comment',
@@ -7,9 +9,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommentComponent implements OnInit {
 
-  constructor() { }
+  @Input() comment: any;
+  public kids$: Observable<any>;
+
+
+  constructor(
+    private api: ApiService
+  ) {
+
+  }
 
   ngOnInit(): void {
+  }
+
+  loadSubItems(event, comment) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.kids$ = this.api.getMultipleItems(comment.kids);
+  }
+
+  collapseComment(event, comment) {
+    event.preventDefault();
+    event.stopPropagation();
+    comment.display = !comment.display;
   }
 
 }
