@@ -10,8 +10,9 @@ import { Observable } from 'rxjs';
 export class CommentComponent implements OnInit {
 
   @Input() comment: any;
+  @Input() depth: number;
   public kids$: Observable<any>;
-
+  public borderColours = ['#D46A6A', '#D49A6A', '#407F7F', '#55AA55'];
 
   constructor(
     private api: ApiService
@@ -20,6 +21,7 @@ export class CommentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   loadSubItems(event, comment) {
@@ -32,6 +34,15 @@ export class CommentComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
     comment.display = !comment.display;
+  }
+
+  incrementDepth() {
+    return this.depth + 1;
+  }
+
+  setBorderColor() {
+    const selectedColor = this.borderColours[this.depth % 4];
+    return `solid ${selectedColor}`;
   }
 
 }

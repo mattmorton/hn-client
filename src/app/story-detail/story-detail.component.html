@@ -3,7 +3,7 @@
   <div *ngIf="data.comments">
     <div class="list-group">
       <div *ngFor="let comment of data.comments" class="list-group-item list-group-item">
-        <app-comment [comment]=comment></app-comment>
+        <app-comment [comment]=comment [depth]=0></app-comment>
       </div>
     </div>
   </div>
