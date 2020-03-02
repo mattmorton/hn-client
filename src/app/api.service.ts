@@ -1,8 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, of } from 'rxjs';
-import { map, tap, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
+
+export interface Item {
+  id: number;
+  deleted?: boolean;
+  type?: string;
+  by?: string;
+  time?: number;
+  text?: string;
+  dead?: boolean;
+  parent?: number;
+  poll?: number;
+  kids?: number[];
+  url?: string;
+  score?: number;
+  title?: string;
+  parts?: number[];
+  descendants?: number;
+  display?: boolean;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -24,14 +43,14 @@ export class ApiService {
     return this.http.get<[number]>(url);
   }
 
-  getItemById(id): Observable<any> {
+  getItemById(id): Observable<Item> {
     const url = `${this.baseUrl}/item/${id}.json`;
-    return this.http.get<any>(url).pipe(
+    return this.http.get<Item>(url).pipe(
       tap(res => res.display = true)
     )
   }
 
-  getMultipleItems(ids: number[]) {
+  getMultipleItems(ids: number[]): Observable<Item[]> {
     const requests = ids.map(i => this.getItemById(i).pipe(
       catchError(error => of(error))
     ));
