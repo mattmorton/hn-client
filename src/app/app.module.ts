@@ -10,6 +10,8 @@ import { StoryListComponent } from './story-list/story-list.component';
 import { StoryComponent } from './story/story.component';
 import { StoryDetailComponent } from './story-detail/story-detail.component';
 import { CommentComponent } from './comment/comment.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { CommentComponent } from './comment/comment.component';
     AppRoutingModule,
     HttpClientModule,
     NgxPaginationModule,
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

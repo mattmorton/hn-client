@@ -2,7 +2,7 @@
 <div *ngIf="comment.display" class="ml-2 pl-2" [style.border-left]="setBorderColor()">
   <div [innerHTML]="comment.text"></div>
   <div *ngIf="comment.kids">
-    <a href="" (click)="loadSubItems($event, comment)">{{comment.kids.length}} responses...</a>
+    <a href="" (click)="loadSubItems($event, comment)">Load responses...</a>
     <div *ngIf="kids$ | async as kids">
       <div *ngFor="let kid of kids">
         <div class="list-group-item list-group-item ml-1 border-0">
