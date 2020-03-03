@@ -1,7 +1,7 @@
-<div *ngIf="data$ | async as data">
+<div *ngIf="ids$ | async as ids">
   <div class="list-group">
-    <div *ngFor="let story of data.stories | paginate: { itemsPerPage: 10, currentPage: p}">
-      <app-story [story]=story (click)="onClickStory($event, story)"></app-story>
+    <div *ngFor="let id of ids | paginate: { itemsPerPage: 10, currentPage: (page$ | async)}">
+      <app-story [id]=id (click)="onClickStory($event, id)"></app-story>
     </div>
     <pagination-controls (pageChange)="pageChange($event)"></pagination-controls>
   </div>

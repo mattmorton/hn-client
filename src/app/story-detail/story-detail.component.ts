@@ -34,8 +34,4 @@ export class StoryDetailComponent implements OnInit {
       }),
     )
   }
-
-
-
-
 }

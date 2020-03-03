@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, forkJoin, Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { mergeMap, map, tap } from 'rxjs/operators';
+import { mergeMap, map, tap, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-story-list',
@@ -11,44 +11,42 @@ import { mergeMap, map, tap } from 'rxjs/operators';
 })
 export class StoryListComponent implements OnInit {
 
+  ids$: Observable<number[]>;
   stories$: Observable<any>;
-  p: number;
   data$: Observable<any>;
-
+  page$ = new Subject<number>();
+  
   constructor(
     private api: ApiService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.getIdsAndFirstTenTopStories();
+    this.getIds();
   }
 
-  getTopStories() {
-    this.api.getTopStories().subscribe((res) => {
-      const ids = res.slice(0, 30)
-      this.stories$ = this.api.getMultipleItems(ids);
-    })
-  }
-
-  onClickStory($event: any, story: any) {
-    this.router.navigate([`/story/${story.id}`])
+  onClickStory($event: any, id: any) {
+    this.router.navigate([`/story/${id}`])
   }
 
   pageChange($event: any) {
-    this.p = $event;
+    this.page$.next($event);
   }
 
 
   getIdsAndFirstTenTopStories() {
     this.data$ = this.api.getTopStories().pipe(
       mergeMap((ids) => {
-        const topTenIds = ids.slice(0, 20)
+        const topTenIds = ids.slice(0, 10)
         return this.api.getMultipleItems(topTenIds).pipe(map(stories => {
           return { ids: ids, stories: stories }
         }))
       }),
     )
+  }
+
+  getIds() {
+    this.ids$ = this.api.getTopStories();
   }
 
 }
