@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-story',
@@ -9,15 +7,14 @@ import { ApiService } from '../api.service';
 })
 export class StoryComponent implements OnInit {
 
-  @Input() id: any;
-  story$: Observable<any>
+  @Input() story: any;
 
   constructor(
-    private api: ApiService
+
   ) { }
 
   ngOnInit(): void {
-    this.story$ = this.api.getItemById(this.id)
+
   }
 
 }

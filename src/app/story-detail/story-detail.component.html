@@ -1,5 +1,5 @@
 <div *ngIf="data$ | async as data">
-  <app-story [id]=data.story.id></app-story>
+  <app-story [story]=data.story></app-story>
   <div *ngIf="data.comments">
     <div class="list-group">
       <div *ngFor="let comment of data.comments" class="list-group-item list-group-item">

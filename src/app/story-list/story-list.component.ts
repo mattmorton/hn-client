@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { Observable, forkJoin, Subject } from 'rxjs';
-import { Router } from '@angular/router';
-import { mergeMap, map, tap, switchMap } from 'rxjs/operators';
+import { Observable, forkJoin, Subject, of } from 'rxjs';
+import { Router, ActivatedRoute, ParamMap, NavigationEnd, NavigationStart } from '@angular/router';
+import { mergeMap, map, tap, switchMap, share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-story-list',
@@ -11,18 +11,35 @@ import { mergeMap, map, tap, switchMap } from 'rxjs/operators';
 })
 export class StoryListComponent implements OnInit {
 
-  ids$: Observable<number[]>;
-  stories$: Observable<any>;
   data$: Observable<any>;
   page$ = new Subject<number>();
+  loading = true;
   
   constructor(
     private api: ApiService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.getIds();
+    this.watchUrlChanges();
+  }
+
+  watchUrlChanges() {
+    this.data$ = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => {
+        this.loading = true;
+        console.log('params', params)
+        return this.api.getStoriesByType(params.get('type')).pipe(
+          mergeMap((ids) => {
+            return this.api.getMultipleItems(ids).pipe(map(stories => {
+              this.loading = false;
+              return { ids: ids, stories: stories }
+            }))
+          })
+        )
+      })
+    )
   }
 
   onClickStory($event: any, id: any) {
@@ -31,22 +48,6 @@ export class StoryListComponent implements OnInit {
 
   pageChange($event: any) {
     this.page$.next($event);
-  }
-
-
-  getIdsAndFirstTenTopStories() {
-    this.data$ = this.api.getTopStories().pipe(
-      mergeMap((ids) => {
-        const topTenIds = ids.slice(0, 10)
-        return this.api.getMultipleItems(topTenIds).pipe(map(stories => {
-          return { ids: ids, stories: stories }
-        }))
-      }),
-    )
-  }
-
-  getIds() {
-    this.ids$ = this.api.getTopStories();
   }
 
 }

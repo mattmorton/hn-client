@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 
 export interface Item {
@@ -38,9 +38,11 @@ export class ApiService {
 
   }
 
-  getTopStories(): Observable<[number]> {
-    const url = `${this.baseUrl}/topstories.json`;
-    return this.http.get<[number]>(url);
+  getStoriesByType(type: string): Observable<number[]> {
+    const url = `${this.baseUrl}/${type}stories.json`;
+    return this.http.get<number[]>(url).pipe(
+      map((res) => res.slice(0, 50))
+    )
   }
 
   getItemById(id): Observable<Item> {

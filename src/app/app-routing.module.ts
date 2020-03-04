@@ -5,7 +5,7 @@ import { StoryDetailComponent } from './story-detail/story-detail.component';
 
 const routes: Routes = [
   {
-    path: 'stories',
+    path: 'stories/:type',
     component: StoryListComponent
   },
   {
@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/stories',
+    redirectTo: '/stories/top',
     pathMatch: 'full'
   },
   {
