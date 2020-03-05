@@ -4,13 +4,20 @@ import { StoryListComponent } from './story-list/story-list.component';
 import { StoryDetailComponent } from './story-detail/story-detail.component';
 
 const routes: Routes = [
+
   {
     path: 'stories/:type',
-    component: StoryListComponent
+    component: StoryListComponent,
+    data: { animation: 'stories' }
+  },
+  {
+    path: 'stories',
+    redirectTo: 'stories/top'
   },
   {
     path: 'story/:id',
-    component: StoryDetailComponent
+    component: StoryDetailComponent,
+    data: { animation: 'story' }
   },
   {
     path: '',

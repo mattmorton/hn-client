@@ -21,6 +21,7 @@
     "@angular/router": "~9.0.3",
     "@angular/service-worker": "~9.0.3",
     "bootstrap": "^4.4.1",
+    "firebase": "^7.9.3",
     "jquery": "^3.4.1",
     "ngx-pagination": "^5.0.0",
     "ngx-skeleton-loader": "^1.2.6",
