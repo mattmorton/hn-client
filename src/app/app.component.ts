@@ -17,6 +17,7 @@ export class AppComponent {
 
   ) {
     firebase.initializeApp(environment.firebaseConfig)
+    // firebase.analytics().logEvent('init')
   }
 
   getAnimationData(outlet: RouterOutlet) {
