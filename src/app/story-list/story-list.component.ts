@@ -29,7 +29,6 @@ export class StoryListComponent implements OnInit {
     this.data$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         this.loading = true;
-        console.log('params', params)
         return this.api.getStoriesByType(params.get('type')).pipe(
           mergeMap((ids) => {
             return this.api.getMultipleItems(ids).pipe(map(stories => {
@@ -42,8 +41,8 @@ export class StoryListComponent implements OnInit {
     )
   }
 
-  onClickStory($event: any, id: any) {
-    this.router.navigate([`/story/${id}`])
+  onClickStory($event: any, story: any) {
+    this.router.navigate([`/story/${story.id}`], { state: story })
   }
 
   pageChange($event: any) {

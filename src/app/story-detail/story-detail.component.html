@@ -1,12 +1,20 @@
-<div *ngIf="data$ | async as data">
-  <app-story [story]=data.story></app-story>
-  <div *ngIf="data.comments">
-    <div class="list-group">
-      <div *ngFor="let comment of data.comments" class="list-group-item list-group-item">
-        <app-comment [comment]=comment [depth]=0></app-comment>
-      </div>
+<div *ngIf="story$ | async as story">
+  <app-story [story]="story"></app-story>
+</div>
+
+<div *ngIf="comments$ | async as comments">
+  <div class="list-group">
+    <div *ngFor="let comment of comments" class="list-group-item list-group-item">
+      <app-comment [comment]=comment [depth]=0></app-comment>
     </div>
   </div>
 </div>
 
+<div *ngIf="loading">
+  <div class="d-flex justify-content-center m-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>
 

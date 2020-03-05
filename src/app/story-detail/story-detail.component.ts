@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, forkJoin, concat, combineLatest, from } from 'rxjs';
 import { ApiService } from '../api.service';
-import { ActivatedRoute } from '@angular/router';
-import { tap, mergeMap, switchMap, map } from 'rxjs/operators';
+import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
+import { tap, mergeMap, switchMap, map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-story-detail',
@@ -14,24 +14,37 @@ export class StoryDetailComponent implements OnInit {
   public story$: Observable<any>;
   public comments$: Observable<any>;
   public data$: Observable<any>;
+  loading = true;
 
   constructor(
     private api: ApiService,
+    private router: Router,
     private route: ActivatedRoute
-  ) { }
-
-  ngOnInit(): void {
-    this.getStoryAndComments()
+  ) {
+    this.getStory();
+    this.getComments();
   }
 
-  getStoryAndComments() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.data$ = this.api.getItemById(id).pipe(
-      mergeMap((story) => {
-        return this.api.getMultipleItems(story.kids).pipe(map(comments => {
-          return { story: story, comments: comments }
-        }))
-      }),
+  ngOnInit(): void {
+
+  }
+
+  getComments() {
+    this.comments$ = this.story$.pipe(
+      switchMap((story) => {
+          return this.api.getMultipleItems(story.kids).pipe(
+            tap(() => this.loading = false)
+          )
+      })
     )
+  }
+
+  getStory() {
+    if (this.router.getCurrentNavigation().extras.state) {
+      this.story$ = from([this.router.getCurrentNavigation().extras.state])
+    } else {
+      const id = this.route.snapshot.paramMap.get('id');
+      this.story$ = this.api.getItemById(id);
+    }
   }
 }
