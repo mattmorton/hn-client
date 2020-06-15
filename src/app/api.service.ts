@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { tap, catchError, map, publishReplay, refCount } from 'rxjs/operators';
+import { tap, catchError, map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 
 export interface Item {
@@ -41,13 +41,12 @@ export class ApiService {
   getStoriesByType(type: string): Observable<number[]> {
     const url = `${this.baseUrl}/${type}stories.json`;
     return this.http.get<number[]>(url).pipe(
-      map((res) => res.slice(0, 50)),
-      publishReplay(1),
-      refCount()
+      map((res) => res.slice(0, 50))
     )
   }
 
   getItemById(id): Observable<Item> {
+    console.log('id', id)
     const url = `${this.baseUrl}/item/${id}.json`;
     return this.http.get<Item>(url).pipe(
       tap(res => res.display = true)

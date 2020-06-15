@@ -30,6 +30,7 @@ export class StoryDetailComponent implements OnInit {
   }
 
   getComments() {
+    console.log('here at comments')
     this.comments$ = this.story$.pipe(
       switchMap((story) => {
           return this.api.getMultipleItems(story.kids).pipe(
@@ -41,8 +42,10 @@ export class StoryDetailComponent implements OnInit {
 
   getStory() {
     if (this.router.getCurrentNavigation().extras.state) {
+      console.log('here')
       this.story$ = from([this.router.getCurrentNavigation().extras.state])
     } else {
+      console.log('next')
       const id = this.route.snapshot.paramMap.get('id');
       this.story$ = this.api.getItemById(id);
     }
