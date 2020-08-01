@@ -2,12 +2,11 @@
 
 A simple [Hacker News](https://news.ycombinator.com/) client built with Angular.
 
-[Visit the site!](https://hn-client-ab161.firebaseapp.com/stories/top)
+[Visit the site!](https://hackernews.mattmorton.info)
 
 ## Details
 
 - Pulls data from the [Hacker News API](https://github.com/HackerNews/API)
-- Hosted with firebase
 - Includes @angular/pwa implementation
 - Bootstrap styling - mobile responsive
 
