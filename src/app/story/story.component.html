@@ -1,6 +1,9 @@
 <div class="list-group-item list-group-item-action">
   <div class="d-flex w-100 justify-content-between">
-    <h5 class="mb-1"><a href={{story.url}}>{{story.title}}</a></h5>
+    <h5 class="mb-1"><a href="#" (click)="onClickStory($event, story)">{{story.title}}</a></h5>
   </div>
-  <small>Posted at {{story.time * 1000 | date:'medium'}} by {{ story.by}} | {{ story.score }} points | {{ story.descendants }} comments</small>
+  <div *ngIf="showStoryText">
+    <div [innerHTML]="story.text"></div>
+  </div>
+  <small (click)="onClickComments($event, story)">Posted at {{story.time * 1000 | date:'medium'}} by {{ story.by}} | {{ story.score }} points | {{ story.descendants }} comments</small>
 </div>

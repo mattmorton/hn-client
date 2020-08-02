@@ -48,7 +48,6 @@ export class ApiService {
   getItemById(id): Observable<Item> {
     const url = `${this.baseUrl}/item/${id}.json`;
     return this.http.get<Item>(url).pipe(
-      tap(res => console.log(res)),
       tap(res => res.display = true)
     )
   }

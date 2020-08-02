@@ -9,7 +9,7 @@
   <div *ngIf="!loading">
     <div class="list-group">
       <div *ngFor="let story of data.stories | paginate: { itemsPerPage: 10, currentPage: (page$ | async)}">
-        <app-story [story]=story (click)="onClickStory($event, story)"></app-story>
+        <app-story [story]=story></app-story>
       </div>
     </div>
     <div class="d-flex justify-content-center m-2">

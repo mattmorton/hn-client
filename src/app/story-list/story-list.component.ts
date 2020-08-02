@@ -41,10 +41,6 @@ export class StoryListComponent implements OnInit {
     )
   }
 
-  onClickStory($event: any, story: any) {
-    this.router.navigate([`/story/${story.id}`], { state: story })
-  }
-
   pageChange($event: any) {
     this.page$.next($event);
   }
