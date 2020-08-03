@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import * as firebase from 'firebase/app';
-import 'firebase/analytics';
-import { environment } from 'src/environments/environment';
 import { slideInAnimation } from './animations';
 import { RouterOutlet } from '@angular/router';
 @Component({
@@ -16,7 +13,6 @@ export class AppComponent {
   constructor(
 
   ) {
-    firebase.initializeApp(environment.firebaseConfig)
   }
 
   getAnimationData(outlet: RouterOutlet) {
