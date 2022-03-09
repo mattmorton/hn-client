@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "hn-client": {
@@ -102,9 +102,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [
-
-            ]
+            "scripts": []
           }
         },
         "lint": {
@@ -133,6 +131,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "hn-client"
+    }
+  },
+  "defaultProject": "hn-client",
+  "cli": {
+    "analytics": "62f4d7b0-6daf-4686-b2af-1a8b42202ffb"
+  }
 }
