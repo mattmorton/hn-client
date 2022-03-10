@@ -1,6 +1,6 @@
 {
   "name": "hn-client",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -22,7 +22,6 @@
     "@angular/router": "~13.2.6",
     "@angular/service-worker": "~13.2.6",
     "bootstrap": "^4.4.1",
-    "firebase": "^7.15.1",
     "jquery": "^3.5.1",
     "ngx-pagination": "^5.0.0",
     "ngx-skeleton-loader": "^1.2.6",
