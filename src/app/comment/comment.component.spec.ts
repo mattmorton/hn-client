@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { CommentComponent } from './comment.component';
@@ -12,7 +12,7 @@ describe('CommentComponent', () => {
   let fixture: ComponentFixture<CommentComponent>;
   let apiServiceSpy: jasmine.SpyObj<ApiService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
 
     const spy = jasmine.createSpyObj('ApiService', ['getMultipleItems']);
 
